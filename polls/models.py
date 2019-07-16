@@ -18,8 +18,14 @@ class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
+    def __str__(self):
+        return self.question_text
+
 class Choice(models.Model):
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
     # now we give choice class a new parameter - pass in question, has to be a foreign key of this q object and on delete, intiiatlize cascade (for 1 to 1 relationship)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.choice_text
