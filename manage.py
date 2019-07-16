@@ -16,6 +16,6 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
-
+## example usage: python3 manage.py startapp polls
 if __name__ == '__main__':
     main()
