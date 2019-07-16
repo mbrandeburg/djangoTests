@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # add your apps you want to install via manage.py
+    'polls', #then do python3 manage.py makemigrations polls && python3 manage.py migrate
 ]
 
 MIDDLEWARE = [
