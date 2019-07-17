@@ -25,7 +25,13 @@ def index(request):
 
 
 def detail(request, question_id):
-    return HttpResponse("This is the detailed view of the question: {}".format(question_id))
+    ## original:
+    # return HttpResponse("This is the detailed view of the question: {}".format(question_id))
+    
+    ## revisied:
+    question = Question.objects.get(pk=question_id)
+    # wont pass in variabvle with dictionary this time..just gunna code the dictionary inside
+    return render(request, 'polls/detail.html', {'question':question})
 
 def results(request, question_id):
     return HttpResponse("These are the results of the question: {}".format(question_id))

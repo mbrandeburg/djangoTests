@@ -1,0 +1,10 @@
+<head><title>Detail page</title></head>
+<body>
+<h1> {{question.question_text}} </h1>
+<!-- now iterate through all the choices for the question -->
+<ul>
+{% for choice in question.choice_set.all %}
+<li>{{choice.choice_text}}</li>
+{% endfor %}
+</ul>
+</body>
