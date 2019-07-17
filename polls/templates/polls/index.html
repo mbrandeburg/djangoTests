@@ -1,5 +1,15 @@
 <head><title>Poll page</title></head>
 <body>
-    {}
+    {% if latest_questions %}
+        {% for question in latest_questions %}
+        <ul>
+          <li><a href='/polls/{{question.id}}'><b>{{question.question_text}}</b></a></li> 
+        {% endfor %}
+    </ul>
+     {% else %}
+      <p>You don't have any questions in the database.</p>
+    {% endif %}
+
+
 
 </body>
