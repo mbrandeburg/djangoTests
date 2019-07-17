@@ -1,4 +1,8 @@
-<head><title>Title</title></head>
+{% load staticfiles %}
+<head>
+    <title>Title</title>
+    <link rel='stylesheet' type='text/css' href="{% static 'polls/style.css' %}"/> 
+</head>
 <body>
 <p> Header </p>
 <!-- instead of coding each page like we've been doing,
