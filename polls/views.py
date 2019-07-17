@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from .models import Question
 # from django.template import loader, RequestContext # no longer needed after `revised - simplified` under index
 
@@ -29,12 +30,27 @@ def detail(request, question_id):
     # return HttpResponse("This is the detailed view of the question: {}".format(question_id))
     
     ## revisied:
-    question = Question.objects.get(pk=question_id)
+    question = get_object_or_404(Question, pk=question_id)
     # wont pass in variabvle with dictionary this time..just gunna code the dictionary inside
     return render(request, 'polls/detail.html', {'question':question})
 
 def results(request, question_id):
-    return HttpResponse("These are the results of the question: {}".format(question_id))
+    # return HttpResponse("These are the results of the question: {}".format(question_id))
+    question = get_object_or_404(Question, pk = question_id)
+    return render(request, 'polls/results.html', {'question':question})
 
 def vote(request, question_id):
-    return HttpResponse("Votes for question: {}".format(question_id))
+    # return HttpResponse("Votes for question: {}".format(question_id))
+
+    # now let's write the python logic to store choices, etc., from the voting app
+    question = get_object_or_404(Question, pk=question_id)
+    try:
+        # use post to get a dictionary that gets us back the id which is what pk takes!
+        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    except:
+        return render(request, 'polls/detail.html', {'question': question, 'error_message': 'Please select a choice!'})
+    else:
+        # so you've voted, so lets increment and save and redirect to your results!
+        selected_choice.votes += 1
+        selected_choice.save()
+        return HttpResponseRedirect(reverse('polls:results', args=(question_id)))

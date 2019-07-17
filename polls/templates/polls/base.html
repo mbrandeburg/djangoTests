@@ -1,11 +1,11 @@
-<head><title>TITLE</title></head>
+<head><title>Title</title></head>
 <body>
-
+<p> Header </p>
 <!-- instead of coding each page like we've been doing,
     making instead a "base.html", like a cookie cutter,
     which uses BLOCKS, that will allow for plug-in-play coding -->
 {% block main_content %}
 {% endblock %}
-
+{% include 'polls/footer.html' %}
 
 </body>

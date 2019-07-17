@@ -1,10 +1,24 @@
-<head><title>Detail page</title></head>
-<body>
+<!-- got rid of header being replaced by base.html -->
+{% extends 'polls/base.html' %}
+{% block main_content %}
+
+
+<!-- resume previous code -->
 <h1> {{question.question_text}} </h1>
-<!-- now iterate through all the choices for the question -->
-<ul>
-{% for choice in question.choice_set.all %}
-<li>{{choice.choice_text}}</li>
-{% endfor %}
-</ul>
-</body>
+
+<!-- surface errors -->
+{% if error_message %} <p><b>{{error_message}}</b></p> {% endif %}
+
+<!-- make our form -->
+<form action="{% url 'polls:vote' question.id %}" method='post'>
+    <!-- inside of any post form, to make sure any data isn't stolen, you need to pass a csrf token -->
+    {% csrf_token %}
+    <!-- now iterate through all the choices for the question -->
+    {% for choice in question.choice_set.all %}
+        <input type='radio' name='choice' id='choice{{forloop.counter}}' value="{{choice.id}}"/>
+        <label for='choice{{forloop.counter}}'> {{choice.choice_text}} </label> <br>
+        {% endfor %}
+        <input type='submit' value='vote'/>
+</form>
+
+{% endblock %}

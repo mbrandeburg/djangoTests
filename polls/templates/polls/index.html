@@ -1,15 +1,19 @@
-<head><title>Poll page</title></head>
-<body>
+<!-- got rid of header being replaced by base.html -->
+{% extends 'polls/base.html' %}
+{% block main_content %}
+
+
+<!-- resume previous code -->
     {% if latest_questions %}
         {% for question in latest_questions %}
         <ul>
-          <li><a href='/polls/{{question.id}}'><b>{{question.question_text}}</b></a></li> 
+          <!-- <li><a href='/polls/{{question.id}}'><b>{{question.question_text}}</b></a></li>  -->
+          <!-- improved way: url maped to page, detail (and its using namespace: from mysite, url.py), and whats after that? / question_id -->
+          <li><a href={% url "polls:detail" question.id %}><b>{{question.question_text}}</b></a></li> 
         {% endfor %}
     </ul>
      {% else %}
       <p>You don't have any questions in the database.</p>
     {% endif %}
 
-
-
-</body>
+{% endblock %}

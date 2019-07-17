@@ -19,5 +19,6 @@ from django.urls import include #b/c did like instructions above
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('polls/', include('polls.urls')),
+    # put app name in tuple after include, but before namesapce
+    path('polls/', include(('polls.urls', 'polls'), namespace="polls")), 
 ]
